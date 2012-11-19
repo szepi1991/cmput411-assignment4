@@ -25,15 +25,29 @@ void load_shaders()
 {
 	//WRITE ALL OF YOUR QUESTION 1 CODE IN HERE! (it should be approximately 20 lines of code)
 
-	
+	unsigned int shader_vp = glCreateShader(GL_VERTEX_SHADER);
+	unsigned int shader_fp = glCreateShader(GL_FRAGMENT_SHADER);
 
+	char* vsText = convertFileToCString("shaders/toon.vert");
+	char* fsText = convertFileToCString("shaders/toon.frag");
 
+	const char* vsC = vsText;
+	const char* fsC = fsText;
+	glShaderSource(shader_vp, 1, &vsC, 0);
+	glShaderSource(shader_fp, 1, &fsC, 0);
 
+	free(vsText);
+	free(fsText);
 
+	glCompileShader(shader_vp);
+	glCompileShader(shader_fp);
 
+	unsigned int shader_id = glCreateProgram();
+	glAttachShader(shader_id, shader_fp);
+	glAttachShader(shader_id, shader_vp);
+	glLinkProgram(shader_id);
 
-
-
+	glUseProgram(shader_id);
 
 	//NO MORE CODE PAST THIS POINT!
 }
