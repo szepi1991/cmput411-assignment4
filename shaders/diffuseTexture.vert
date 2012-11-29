@@ -7,12 +7,10 @@ void main() {
     normal = normalize(gl_NormalMatrix * gl_Normal);
     lightDir = normalize(vec3(gl_LightSource[0].position));
 
-    vec4 diffuse = gl_LightSource[0].diffuse*gl_FrontMaterial.diffuse*max(dot(normal, lightDir), 0.0);
-    vec4 ambient = gl_FrontMaterial.ambient * gl_LightSource[0].ambient;
-	vec4 globalAmbient = gl_LightModel.ambient * gl_FrontMaterial.ambient;
+    vec4 diffuse = gl_LightSource[0].diffuse*max(dot(normal, lightDir), 0.0);
+    vec4 ambient = gl_LightSource[0].ambient;
 
-//    gl_FrontColor = diffuse + globalAmbient + ambient;
-    gl_FrontColor = diffuse;
+    gl_FrontColor = diffuse + ambient;
 
     gl_TexCoord[0] = gl_MultiTexCoord0;
     gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
